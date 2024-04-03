@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Karate Scoreboard</title>
+</head>
+<body>
+    <button id="openButton" onclick="openOrFocusSecondWindow()">Начать</button>
+
+    <style>
+        html {
+            background-image: url(image.jpg);
+            background-repeat: no-repeat;
+            background-position: center center;
+            background-attachment: fixed;
+            -webkit-background-size: cover;
+            -moz-background-size: cover;
+            -o-background-size: cover;
+            background-size: cover;
+        }
+        button {
+            position: absolute;
+            top: 40%;
+            left: 40%;
+            transform: translateX(50%, 50%);
+
+            width: 400px;
+            height: 100px;
+            background-color: rgb(0, 89, 255);
+            font-weight: 750;
+            font-size: 70px;
+            border-radius: 10px;
+            border-color: rgb(143, 143, 143);
+        }
+    </style>
+    <script>
+        function openOrFocusSecondWindow() {
+            secondWindow = window.open("control.html", "_blank", "width=1280, height=720");
+        }
+    </script>
+</body>
+</html>

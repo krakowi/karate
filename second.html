@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scoreboard</title>
+
+    <link rel="stylesheet" href="second-styles.css">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:100,100i,200,200i,300,400&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <div class="half red">
+            <div class="aka-text">
+                <p class="aka-name">AKA</p>
+            </div>
+
+            <div id="aka-senshu">SENSHU</div>
+            <p class="aka-score" id="aka-score">0</p>
+
+            <div class="aka-pen-name">
+                <div class="c1">C1</div>
+                <div class="c2">C2</div>
+                <div class="c3">C3</div>
+                <div class="hc">HC</div>
+                <div class="h">H</div>
+            </div>
+            <div class="aka-penalties">
+                <div class="c1" id="akac1"></div>
+                <div class="c2" id="akac2"></div>
+                <div class="c3" id="akac3"></div>
+                <div class="hc" id="akahc"></div>
+                <div class="h" id="akah"></div>
+            </div>
+        </div>
+
+        <div class="half blue">
+            <p class="ao-name">AO</p>
+            <div id="ao-senshu">SENSHU</div>
+            <p class="ao-score" id="ao-score">0</p>
+            
+            <div class="ao-pen-name">
+                <div class="c1">C1</div>
+                <div class="c2">C2</div>
+                <div class="c3">C3</div>
+                <div class="hc">HC</div>
+                <div class="h">H</div>
+            </div>
+            <div class="ao-penalties">
+                <div class="c1" id="aoc1"></div>
+                <div class="c2" id="aoc2"></div>
+                <div class="c3" id="aoc3"></div>
+                <div class="hc" id="aohc"></div>
+                <div class="h" id="aoh"></div>
+            </div>
+        </div>
+
+        <div class="tatami">
+            <p class="text">Tatami</p>
+            <p id="number">1</p>
+        </div>
+
+        <div class="timer">
+            <p id="timer" class="time">1:30</p>
+        </div>
+    </div>
+    <script>
+        let timerInterval;
+        let timerRunning = false;
+        let seconds = 90;
+        let senshuAkaVisible = false;
+        let senshuAoVisible = false;
+
+        function warn(pen) {
+            if (pen === 'akac1') {
+                document.getElementById('akac1').style.background = 'white';
+            } else if (pen === 'akac2') {
+                document.getElementById('akac2').style.background = 'white';
+            } else if (pen === 'akac3') {
+                document.getElementById('akac3').style.background = 'white';
+            } else if (pen === 'akahc') {
+                document.getElementById('akahc').style.background = 'white';
+            } else if (pen === 'akah') {
+                document.getElementById('akah').style.background = 'white';
+                document.getElementById('ao-score').classList.add('flashing');
+            } else if (pen === 'aoc1') {
+                document.getElementById('aoc1').style.background = 'white';
+            } else if (pen === 'aoc2') {
+                document.getElementById('aoc2').style.background = 'white';
+            } else if (pen === 'aoc3') {
+                document.getElementById('aoc3').style.background = 'white';
+            } else if (pen === 'aohc') {
+                document.getElementById('aohc').style.background = 'white';
+            } else if (pen === 'aoh') {
+                document.getElementById('aoh').style.background = 'white';
+                document.getElementById('aka-score').classList.add('flashing');
+            }
+        }
+
+        function unwarn(pen) {
+            if (pen === 'akac1') {
+                document.getElementById('akac1').style.background = 'rgba(0, 0, 0, 0.356)';
+            } else if (pen === 'akac2') {
+                document.getElementById('akac2').style.background = 'rgba(0, 0, 0, 0.356)';
+            } else if (pen === 'akac3') {
+                document.getElementById('akac3').style.background = 'rgba(0, 0, 0, 0.356)';
+            } else if (pen === 'akahc') {
+                document.getElementById('akahc').style.background = 'rgba(0, 0, 0, 0.356)';
+            } else if (pen === 'akah') {
+                document.getElementById('akah').style.background = 'rgba(0, 0, 0, 0.356)';
+            } else if (pen === 'aoc1') {
+                document.getElementById('aoc1').style.background = 'rgba(0, 0, 0, 0.356)';
+            } else if (pen === 'aoc2') {
+                document.getElementById('aoc2').style.background = 'rgba(0, 0, 0, 0.356)';
+            } else if (pen === 'aoc3') {
+                document.getElementById('aoc3').style.background = 'rgba(0, 0, 0, 0.356)';
+            } else if (pen === 'aohc') {
+                document.getElementById('aohc').style.background = 'rgba(0, 0, 0, 0.356)';
+            } else if (pen === 'aoh') {
+                document.getElementById('aoh').style.background = 'rgba(0, 0, 0, 0.356)';
+            }
+        }
+
+        function unwarnall() {
+            document.getElementById('akac1').style.background = 'rgba(0, 0, 0, 0.356)';
+            document.getElementById('akac2').style.background = 'rgba(0, 0, 0, 0.356)';
+            document.getElementById('akac3').style.background = 'rgba(0, 0, 0, 0.356)';
+            document.getElementById('akahc').style.background = 'rgba(0, 0, 0, 0.356)';
+            document.getElementById('akah').style.background = 'rgba(0, 0, 0, 0.356)';
+            document.getElementById('aoc1').style.background = 'rgba(0, 0, 0, 0.356)';
+            document.getElementById('aoc2').style.background = 'rgba(0, 0, 0, 0.356)';
+            document.getElementById('aoc3').style.background = 'rgba(0, 0, 0, 0.356)';
+            document.getElementById('aohc').style.background = 'rgba(0, 0, 0, 0.356)';
+            document.getElementById('aoh').style.background = 'rgba(0, 0, 0, 0.356)';
+        }
+
+        // Функция для запуска таймера
+        function startTimer() {
+            if (!timerRunning) {
+                timerInterval = setInterval(updateTimer, 1000);
+                timerRunning = true;
+                document.getElementById('timer').style.color = 'rgb(255, 187, 0)';
+            }
+        }
+
+        // Функция для остановки таймера
+        function pauseTimer() {
+            clearInterval(timerInterval);
+            timerRunning = false;
+            document.getElementById('timer').style.color = 'black';
+        }
+
+        // Функция для обновления таймера
+        function updateTimer() {
+            seconds--;
+            if (seconds < 0) {
+                pauseTimer();
+                seconds = 0;
+            }
+
+            document.getElementById('timer').innerText = formatTime(seconds);
+        }
+
+        // Функция для форматирования времени
+        function formatTime(time) {
+            let minutes = Math.floor((time % 3600) / 60);
+            let seconds = time % 60;
+
+            return `${minutes < 10 ? minutes : minutes}:${seconds < 10 ? '0' + seconds : seconds}`;
+        }
+
+        window.addEventListener('message', function(event) {
+            if (event.data === 'start') { // старт времени
+                startTimer();
+            } else if (event.data === 'pause') { // пауза времени
+                pauseTimer();
+            } else if (event.data === 'close') { // закрытие окна
+                closeWindow();
+            } else if (event.data.newTime !== undefined) { // смена времени
+                updateTime(event.data.newTime);
+            } else if (event.data.newTatami !== undefined) { // смена номера татами
+                updateTatami(event.data.newTatami);
+            } else if (event.data.showAkaSenshu) { // ака сеншу
+                senshuAkaVisible = !senshuAkaVisible;
+                document.getElementById('aka-senshu').style.display = senshuAkaVisible ? 'flex' : 'none';
+            } else if (event.data === 'resetMatch') { // Перезапустить матч
+                senshuAkaVisible = false
+                document.getElementById('aka-senshu').style.display = 'none';
+                senshuAoVisible = false
+                document.getElementById('ao-senshu').style.display = 'none';
+                unwarnall();
+            } else if (event.data.showAoSenshu) { // ао сеншу
+                senshuAoVisible = !senshuAoVisible;
+                document.getElementById('ao-senshu').style.display = senshuAoVisible ? 'flex' : 'none';
+            } else if (event.data.newScore) { // обновить счет
+                newAkaScore = event.data.newScore.newAkaScore;
+                newAoScore = event.data.newScore.newAoScore;
+                document.getElementById('aka-score').innerText = newAkaScore;
+                document.getElementById('ao-score').innerText = newAoScore;
+
+                var scoreDifference = Math.abs(newAkaScore - newAoScore);
+                if (scoreDifference >= 8) {
+                    if (newAkaScore > newAoScore) {
+                        document.getElementById('aka-score').classList.add('flashing');
+                    } else if (newAkaScore < newAoScore) {
+                        document.getElementById('ao-score').classList.add('flashing');
+                    }       
+                } else {
+                    document.getElementById('aka-score').classList.remove('flashing');
+                    document.getElementById('ao-score').classList.remove('flashing');
+                }
+            } else if (event.data.newWarn) { // выдать наказание
+                warn(event.data.newWarn);
+            } else if (event.data.unWarn) { // снять наказание
+                unwarn(event.data.unWarn);
+            }
+        });
+
+        // Функция для обновления времени
+        function updateTime(newTime) {
+            seconds = newTime;
+            if (!timerRunning) {
+                document.getElementById('timer').innerText = formatTime(seconds);
+            }
+        }
+
+        function updateTatami(newTatami) {
+            number = newTatami;
+            document.getElementById('number').innerText = number;
+        }
+
+        // Функция для закрытия окна
+        function closeWindow() {
+            window.close();
+        }
+    </script>
+</body>
+</html>
