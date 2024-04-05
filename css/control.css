@@ -337,7 +337,7 @@ body, html {
     font-size: 2.5vw;
 }
 
-.image-restart, .image-settings, .image-display, .image-tatami, .image-med{
+.image-restart, .image-settings, .image-display, .image-tatami, .image-med, .image-wait{
     background: none;
     border: none;
     padding: 0;
@@ -398,6 +398,16 @@ body, html {
     position: absolute;
     right: -3%;
     top: 40%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.3vw;
+}
+
+.cher {
+    position: absolute;
+    right: -9.1%;
+    top: 20%;
     transform: translate(-50%, -50%);
     color: white;
     font-family: 'Montserrat', sans-serif;
@@ -471,6 +481,138 @@ body, html {
 .close-med:hover,
 .close-med:focus {
     color: rgb(255, 255, 255);
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.image-wait img{
+    position: absolute;
+    right: 4%;
+    top: 80%;
+    transform: translate(-50%, -50%);
+    white-space: nowrap;
+    text-align: center;
+    color: white;
+}
+
+.wait-modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    animation: fadeIn 0.5s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.wait-time {
+    background-image: url(med-back.png);
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-attachment: fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    display: flex; /* Добавлено */
+    justify-content: center; /* Добавлено */
+    align-items: center;
+}
+
+.wait-icon {
+    position: absolute;
+    left: 55.5%;
+    top: 30%;
+    transform: translate(-50%, -50%);
+}
+
+.wait-timer {
+    position: absolute;
+    left: 50%;
+    top: 60%;
+    transform: translate(-50%, -50%);
+    font-size: 12vw;
+    white-space: nowrap;
+    text-align: center;
+    color: white;
+    font-family: "Oswald", sans-serif;
+}
+
+.close-wait {
+    color: #ffffff;
+    float: right;
+    font-size: 5vw;
+    font-weight: bold;
+    border-radius: 50%;
+    position: absolute;
+    right: 5%;
+    top: 10%;
+    transform: translate(-50%, -50%);
+}
+
+.close-wait:hover,
+.close-wait:focus {
+    color: rgb(255, 255, 255);
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.settings-wait-1 > button {
+    width: 110px;
+    height: 50px;
+    font-weight: 750;
+    border-radius: 4px;
+    border-color: rgb(143, 143, 143);
+    font-size: 1vw;
+}
+
+.wait-modal-1 {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.4);
+    animation: fadeIn 0.5s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.settings-wait-1, .settings-wait-1 {
+    background-color: #a0a0a0;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #b8b8b8;
+    width: 40%;
+    border-radius: 10px;
+}
+
+.close-wait-1 {
+    color: #000000;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    border-radius: 50%;
+}
+
+.close-wait-1:hover,
+.close-wait-1:focus {
+    color: black;
     text-decoration: none;
     cursor: pointer;
 }

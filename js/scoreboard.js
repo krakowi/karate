@@ -4,6 +4,9 @@ let seconds = 90;
 let timerIntervalMed;
 let timerRunningMed = false;
 let secondsMed = 180;
+let timerIntervalWait;
+let timerRunningWait = false;
+let secondsWait = 60;
 let senshuAkaVisible = false;
 let senshuAoVisible = false;
 var akaScore = 0;
@@ -116,9 +119,9 @@ function unwarnall() {
 // Функция для запуска таймера
 function startTimer() {
     if (!timerRunning) {
+        document.getElementById('timer').style.color = 'rgb(255, 187, 0)';
         timerInterval = setInterval(updateTimer, 1000);
         timerRunning = true;
-        document.getElementById('med-modal').style.display = 'block';
     }
 }
 
@@ -127,6 +130,14 @@ function startTimerMed() {
         timerIntervalMed = setInterval(updateTimerMed, 1000);
         timerRunningMed = true;
         document.getElementById('med-modal').style.display = 'block';
+    }
+}
+
+function startTimerWait() {
+    if (!timerRunningWait) {
+        timerIntervalWait = setInterval(updateTimerWait, 1000);
+        timerRunningWait = true;
+        document.getElementById('wait-modal').style.display = 'block';
     }
 }
 
@@ -143,6 +154,14 @@ function pauseTimerMed() {
     secondsMed = 180;
     document.getElementById('med-modal').style.display = "none";
     document.getElementById('med-timer').innerText = "3:00";
+}
+
+function pauseTimerWait() {
+    clearInterval(timerIntervalWait);
+    timerRunningWait = false;
+    secondsWait = 60;
+    document.getElementById('wait-modal').style.display = "none";
+    document.getElementById('wait-timer').innerText = "1:00";
 }
 
 // Функция для обновления таймера
@@ -178,6 +197,16 @@ function updateTimerMed() {
     document.getElementById('med-timer').innerText = formatTime(secondsMed);
 }
 
+function updateTimerWait() {
+    secondsWait--;
+    if (secondsWait < 0) {
+        pauseTimerWait();
+        secondsWait = 0;
+        document.getElementById('wait-modal').style.display = "none";
+    }
+    document.getElementById('wait-timer').innerText = formatTime(secondsWait);
+}
+
 // Функция для форматирования времени
 function formatTime(time) {
     let minutes = Math.floor((time % 3600) / 60);
@@ -191,14 +220,20 @@ window.addEventListener('message', function(event) {
         startTimer();
     } else if (event.data === 'startMed') { // старт времени
         startTimerMed();
+    } else if (event.data === 'startWait') { // старт времени
+        startTimerWait();
     } else if (event.data === 'pause') { // пауза времени
         pauseTimer();
     } else if (event.data === 'pauseMed') { // пауза времени
-            pauseTimerMed();
+        pauseTimerMed();
+    } else if (event.data === 'pauseWait') { // пауза времени
+        pauseTimerWait();
     } else if (event.data === 'close') { // закрытие окна
         closeWindow();
     } else if (event.data.newTime !== undefined) { // смена времени
         updateTime(event.data.newTime);
+    } else if (event.data.newTimeWait !== undefined) { // смена времени
+        updateTimeWait(event.data.newTimeWait);
     } else if (event.data.newTatami !== undefined) { // смена номера татами
         updateTatami(event.data.newTatami);
     } else if (event.data.showAkaSenshu) { // ака сеншу
@@ -246,6 +281,13 @@ function updateTime(newTime) {
     seconds = newTime;
     if (!timerRunning) {
         document.getElementById('timer').innerText = formatTime(seconds);
+    }
+}
+
+function updateTimeWait(newTimeWait) {
+    secondsWait = newTimeWait;
+    if (!timerRunningWait) {
+        document.getElementById('wait-timer').innerText = formatTime(secondsWait);
     }
 }
 

@@ -4,7 +4,7 @@ body, html {
     background: rgb(31, 31, 31);
 }
 
-.med-modal {
+.med-modal, .wait-modal {
     display: none;
     position: fixed;
     z-index: 1;
@@ -20,7 +20,7 @@ body, html {
     to { opacity: 1; }
 }
 
-.med-time {
+.med-time, .wait-time {
     background-image: url(med-back.png);
     padding: 0;
     width: 100%;
@@ -37,14 +37,14 @@ body, html {
     align-items: center;
 }
 
-.med-icon {
+.med-icon, .wait-icon {
     position: absolute;
     left: 55.5%;
     top: 30%;
     transform: translate(-50%, -50%);
 }
 
-.med-timer {
+.med-timer, .wait-timer {
     position: absolute;
     left: 50%;
     top: 60%;

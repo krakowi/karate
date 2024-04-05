@@ -21,6 +21,13 @@
                 <div class="med-timer" id="med-timer">3:00</div>
             </div>
         </div>
+        <div id="wait-modal" class="wait-modal">
+            <div class="wait-time">
+                <span class="close-wait">&times;</span>
+                <div class="wait-icon"><img src="img/clock.png" alt="wait-timer" width="55%"></div>
+                <div class="wait-timer" id="wait-timer">1:00</div>
+            </div>
+        </div>
         <audio id="audioPlayer" style="display: none;">
             <source src="audio/varning.mp3" type="audio/mpeg">
             Your browser does not support the audio element.
@@ -70,7 +77,20 @@
             <button class="image-med" id="med-button">
                 <img src="img/med.png" alt="medical time" onclick="medTime()" width="2%">
             </button>
+
+            <button class="image-wait" id="wait-button">
+                <img src="img/clock.png" alt="wait competitor" width="2%">
+            </button>
+            <div id="wait-modal-1" class="wait-modal-1">
+                <div class="settings-wait-1">
+                    <span class="close-wait-1">&times;</span>
+                    <p>Время ожидания</p>
+                    <input type="number" id="minutesWait" value="1">:<input type="number" id="secondsWait" value="00">
+                    <button onclick="waitStart()">Запустить</button>
+                </div>
+            </div>
             <div class="lymar">Lymar Corporation</div>
+            <div class="cher">Спонсор проекта: Виталий Чернецкий</div>
         </div>
         <div class="ao-container">
             <div class="ao-score-container">

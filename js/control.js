@@ -3,7 +3,10 @@ let timerRunning = false; // Переменная для хранения сос
 let timerInterval;
 let timerRunningMed = false;
 let timerIntervalMed;
+let timerRunningWait = false;
+let timerIntervalWait;
 let seconds = 90;
+let secondsWait = 60;
 let secondsMed = 180;
 let AkaVisible = false;
 let AoVisible = false;
@@ -26,6 +29,20 @@ document.getElementById("settings-button").addEventListener("click", function() 
 
 document.getElementsByClassName("close-time")[0].addEventListener("click", function() {
     document.getElementById("time-modal").style.display = "none";
+});
+
+document.getElementsByClassName("close-wait")[0].addEventListener("click", function() {
+    document.getElementById("wait-modal").style.display = "none";
+    pauseTimerWait()
+});
+
+document.getElementById("wait-button").addEventListener("click", function() {
+    document.getElementById("wait-modal-1").style.display = "block";
+});
+
+
+document.getElementsByClassName("close-wait-1")[0].addEventListener("click", function() {
+    document.getElementById("wait-modal-1").style.display = "none";
 });
 
 document.getElementById("med-button").addEventListener("click", function() {
@@ -205,6 +222,19 @@ function medTime() {
     }
 }
 
+function waitStart() {
+    updateTimeWait()
+    if (!timerRunningWait) {
+        timerIntervalWait = setInterval(updateTimerWait, 1000);
+    }
+    timerRunningWait = true;
+    if (secondWindow && !secondWindow.closed) {
+        secondWindow.postMessage('startWait', '*');
+    }
+    document.getElementById("wait-modal").style.display = "block";
+    document.getElementById("wait-modal-1").style.display = "none";
+}
+
 function startTimer() {
     if (!timerRunning) {
         timerInterval = setInterval(updateTimer, 1000);
@@ -223,7 +253,7 @@ function startTimer() {
 function pauseTimer() {
     timerRunning = false;
     if (secondWindow && !secondWindow.closed) {
-        secondWindow.postMessage('pauseMed', '*');
+        secondWindow.postMessage('pause', '*');
     }
     clearInterval(timerInterval);
     document.getElementById('stop-button').style.display = 'none';
@@ -242,6 +272,17 @@ function pauseTimerMed() {
     secondsMed = 180;
     document.getElementById('med-timer').innerText = "3:00";
     document.getElementById("med-modal").style.display = "none";
+}
+
+function pauseTimerWait() {
+    timerRunningWait = false;
+    if (secondWindow && !secondWindow.closed) {
+        secondWindow.postMessage('pauseWait', '*');
+    }
+    clearInterval(timerIntervalWait);
+    secondsWait = 60;
+    document.getElementById('wait-timer').innerText = formatTime(secondsWait);
+    document.getElementById("wait-modal").style.display = "none";
 }
 
 function formatTime(time) {
@@ -326,6 +367,15 @@ function updateTimerMed() {
     document.getElementById('med-timer').innerText = formatTime(secondsMed);
 }
 
+function updateTimerWait() {
+    secondsWait--;
+    if (secondsWait < 0) {
+        pauseTimerWait();
+        secondsWait = 0;
+    }
+    document.getElementById('wait-timer').innerText = formatTime(secondsWait);
+}
+
 function updateTimerr(newTime) {
     seconds = newTime;
     if (!timerRunning) {
@@ -353,6 +403,27 @@ function updateTime() {
         }
         updateTimerr(seconds);
         document.getElementById("time-modal").style.display = "none";
+    }
+}
+
+function updateTimeWait() {
+    let minutesWait = parseInt(document.getElementById('minutesWait').value);
+    let secondsWait = parseInt(document.getElementById('secondsWait').value);
+
+    if (!isNaN(minutesWait) && !isNaN(secondsWait)) {
+        secondsWait = minutesWait * 60 + secondsWait;
+        if (secondWindow && !secondWindow.closed) {
+            secondWindow.postMessage({newTimeWait: secondsWait}, '*');
+        }
+        updateTimerrWait(secondsWait);
+        document.getElementById("wait-modal").style.display = "none";
+    }
+}
+
+function updateTimerrWait(newTime) {
+    secondsWait = newTime;
+    if (!timerRunningWait) {
+        document.getElementById('wait-timer').innerText = formatTime(secondsWait);
     }
 }
 
