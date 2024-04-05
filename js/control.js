@@ -1,7 +1,10 @@
 let secondWindow = null; // Переменная для хранения ссылки на второе окно
 let timerRunning = false; // Переменная для хранения состояния таймера
 let timerInterval;
+let timerRunningMed = false;
+let timerIntervalMed;
 let seconds = 90;
+let secondsMed = 180;
 let AkaVisible = false;
 let AoVisible = false;
 var akaScore = 0;
@@ -23,6 +26,15 @@ document.getElementById("settings-button").addEventListener("click", function() 
 
 document.getElementsByClassName("close-time")[0].addEventListener("click", function() {
     document.getElementById("time-modal").style.display = "none";
+});
+
+document.getElementById("med-button").addEventListener("click", function() {
+    document.getElementById("med-modal").style.display = "block";
+});
+
+document.getElementsByClassName("close-med")[0].addEventListener("click", function() {
+    document.getElementById("med-modal").style.display = "none";
+    pauseTimerMed();
 });
 
 document.getElementById("tatami-button").addEventListener("click", function() {
@@ -183,6 +195,16 @@ function updateScore() {
     }
 }
 
+function medTime() {
+    if (!timerRunningMed) {
+        timerIntervalMed = setInterval(updateTimerMed, 1000);
+    }
+    timerRunningMed = true;
+    if (secondWindow && !secondWindow.closed) {
+        secondWindow.postMessage('startMed', '*');
+    }
+}
+
 function startTimer() {
     if (!timerRunning) {
         timerInterval = setInterval(updateTimer, 1000);
@@ -201,7 +223,7 @@ function startTimer() {
 function pauseTimer() {
     timerRunning = false;
     if (secondWindow && !secondWindow.closed) {
-        secondWindow.postMessage('pause', '*');
+        secondWindow.postMessage('pauseMed', '*');
     }
     clearInterval(timerInterval);
     document.getElementById('stop-button').style.display = 'none';
@@ -209,6 +231,16 @@ function pauseTimer() {
     document.getElementById('timerDisplay').style.color = 'white';
     audioPlayer.muted = true;
     end.muted = true;
+}
+
+function pauseTimerMed() {
+    timerRunningMed = false;
+    if (secondWindow && !secondWindow.closed) {
+        secondWindow.postMessage('pauseMed', '*');
+    }
+    clearInterval(timerIntervalMed);
+    secondsMed = 180;
+    document.getElementById('med-timer').innerText = "3:00";
 }
 
 function formatTime(time) {
@@ -282,6 +314,16 @@ function updateTimer() {
         audioPlayer.play()
     }
     document.getElementById('timerDisplay').innerText = formatTime(seconds);
+}
+
+function updateTimerMed() {
+    secondsMed--;
+    if (secondsMed < 0) {
+        pauseTimerMed();
+        secondsMed = 0;
+        document.getElementById('med-timer').style.display = 'none';
+    }
+    document.getElementById('med-timer').innerText = formatTime(secondsMed);
 }
 
 function updateTimerr(newTime) {

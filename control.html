@@ -14,6 +14,13 @@
 </head>
 <body>
     <div class="container">
+        <div id="med-modal" class="med-modal">
+            <div class="med-time">
+                <span class="close-med">&times;</span>
+                <div class="med-icon"><img src="img/med.png" alt="med-timer" width="55%"></div>
+                <div class="med-timer" id="med-timer">3:00</div>
+            </div>
+        </div>
         <audio id="audioPlayer" style="display: none;">
             <source src="audio/varning.mp3" type="audio/mpeg">
             Your browser does not support the audio element.
@@ -59,6 +66,10 @@
                 <img src="img/stop.png" alt="stop button" onclick="pauseTimer()" width="9.7%">
             </button>
             <div class="time-container" id="timerDisplay">1:30</div>
+
+            <button class="image-med" id="med-button">
+                <img src="img/med.png" alt="medical time" onclick="medTime()" width="2%">
+            </button>
             <div class="lymar">Lymar Corporation</div>
         </div>
         <div class="ao-container">

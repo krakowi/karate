@@ -1,6 +1,9 @@
 let timerInterval;
 let timerRunning = false;
 let seconds = 90;
+let timerIntervalMed;
+let timerRunningMed = false;
+let secondsMed = 180;
 let senshuAkaVisible = false;
 let senshuAoVisible = false;
 var akaScore = 0;
@@ -115,7 +118,15 @@ function startTimer() {
     if (!timerRunning) {
         timerInterval = setInterval(updateTimer, 1000);
         timerRunning = true;
-        document.getElementById('timer').style.color = 'rgb(255, 187, 0)';
+        document.getElementById('med-modal').style.display = 'block';
+    }
+}
+
+function startTimerMed() {
+    if (!timerRunningMed) {
+        timerIntervalMed = setInterval(updateTimerMed, 1000);
+        timerRunningMed = true;
+        document.getElementById('med-modal').style.display = 'block';
     }
 }
 
@@ -124,6 +135,14 @@ function pauseTimer() {
     clearInterval(timerInterval);
     timerRunning = false;
     document.getElementById('timer').style.color = 'white';
+}
+
+function pauseTimerMed() {
+    clearInterval(timerIntervalMed);
+    timerRunningMed = false;
+    secondsMed = 180;
+    document.getElementById('med-modal').style.display = "none";
+    document.getElementById('med-timer').innerText = "3:00";
 }
 
 // Функция для обновления таймера
@@ -149,6 +168,16 @@ function updateTimer() {
     document.getElementById('timer').innerText = formatTime(seconds);
 }
 
+function updateTimerMed() {
+    secondsMed--;
+    if (secondsMed < 0) {
+        pauseTimerMed();
+        secondsMed = 0;
+        document.getElementById('med-modal').style.display = "none";
+    }
+    document.getElementById('med-timer').innerText = formatTime(secondsMed);
+}
+
 // Функция для форматирования времени
 function formatTime(time) {
     let minutes = Math.floor((time % 3600) / 60);
@@ -160,8 +189,12 @@ function formatTime(time) {
 window.addEventListener('message', function(event) {
     if (event.data === 'start') { // старт времени
         startTimer();
+    } else if (event.data === 'startMed') { // старт времени
+        startTimerMed();
     } else if (event.data === 'pause') { // пауза времени
         pauseTimer();
+    } else if (event.data === 'pauseMed') { // пауза времени
+            pauseTimerMed();
     } else if (event.data === 'close') { // закрытие окна
         closeWindow();
     } else if (event.data.newTime !== undefined) { // смена времени

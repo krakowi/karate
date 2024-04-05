@@ -337,11 +337,21 @@ body, html {
     font-size: 2.5vw;
 }
 
-.image-restart, .image-settings, .image-display, .image-tatami {
+.image-restart, .image-settings, .image-display, .image-tatami, .image-med{
     background: none;
     border: none;
     padding: 0;
     cursor: pointer;
+}
+
+.image-med img{
+    position: absolute;
+    right: 1%;
+    top: 80%;
+    transform: translate(-50%, -50%);
+    white-space: nowrap;
+    text-align: center;
+    color: white;
 }
 
 .image-restart img{
@@ -387,9 +397,80 @@ body, html {
 .lymar {
     position: absolute;
     right: -3%;
-    top: 80%;
+    top: 40%;
     transform: translate(-50%, -50%);
     color: white;
     font-family: 'Montserrat', sans-serif;
     font-size: 1.3vw;
+}
+
+.med-modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    animation: fadeIn 0.5s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.med-time {
+    background-image: url(med-back.png);
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-attachment: fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    display: flex; /* Добавлено */
+    justify-content: center; /* Добавлено */
+    align-items: center;
+}
+
+.med-icon {
+    position: absolute;
+    left: 55.5%;
+    top: 30%;
+    transform: translate(-50%, -50%);
+}
+
+.med-timer {
+    position: absolute;
+    left: 50%;
+    top: 60%;
+    transform: translate(-50%, -50%);
+    font-size: 12vw;
+    white-space: nowrap;
+    text-align: center;
+    color: white;
+    font-family: "Oswald", sans-serif;
+}
+
+.close-med {
+    color: #ffffff;
+    float: right;
+    font-size: 5vw;
+    font-weight: bold;
+    border-radius: 50%;
+    position: absolute;
+    right: 5%;
+    top: 10%;
+    transform: translate(-50%, -50%);
+}
+
+.close-med:hover,
+.close-med:focus {
+    color: rgb(255, 255, 255);
+    text-decoration: none;
+    cursor: pointer;
 }
