@@ -321,7 +321,7 @@ function updateTimerMed() {
     if (secondsMed < 0) {
         pauseTimerMed();
         secondsMed = 0;
-        document.getElementById('med-timer').style.display = 'none';
+        document.getElementById('med-modal').style.display = 'none';
     }
     document.getElementById('med-timer').innerText = formatTime(secondsMed);
 }
