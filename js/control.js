@@ -218,6 +218,24 @@ function formatTime(time) {
     return `${minutes < 10 ? minutes : minutes}:${seconds < 10 ? '0' + seconds : seconds}`;
 }
 
+function isElementVisible(element) {
+    return window.getComputedStyle(element).display !== 'none';
+}
+
+document.addEventListener("keydown", function(event) {
+    if (event.code === "Space") {
+        event.preventDefault();
+        var startButton = document.getElementById("start-button")
+        var stopButton = document.getElementById("stop-button")
+        if (isElementVisible(startButton)) {
+            startTimer()
+        } else if (isElementVisible(stopButton)) {
+            pauseTimer()
+        }
+        
+    }
+})
+
 function resetMatch() {
     pauseTimer()
     seconds = 90;

@@ -21,17 +21,21 @@ body, html {
     overflow: hidden;
 }
 
+.button-container {
+    display: flex;
+    justify-content: center; /* Центрирование изображений по горизонтали */
+    align-items: center; /* Центрирование изображений по вертикали */
+}
+
 button {
     position: absolute;
-    top: 40%;
-    left: 40%;
-    transform: translateX(50%, 50%);
+    bottom: 50%;
 
-    width: 400px;
-    height: 100px;
+    width: 35%;
+    height: 15%;
     background-color: rgb(0, 89, 255);
-    font-weight: 750;
-    font-size: 70px;
+    font-size: 7vw;
+    font-weight: 700;
     border-radius: 10px;
     border-color: rgb(143, 143, 143);
 }
