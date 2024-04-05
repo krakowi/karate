@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kumite Scoreboard</title>
+    <link rel="icon" type="image/png" href="img/start-list.png">
+    <link rel="stylesheet" href="css/start.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Arimo:ital,wght@0,400..700;1,400..700&family=Oswald:wght@200..700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <button id="openButton" onclick="openOrFocusSecondWindow()">Начать</button>
+        <div class="image-container">
+            <img class="logo-chmp" src="img/logo_0.png" alt="Sea" width="12%">
+            <img class="logo-kyiv" src="img/kyiv.png" alt="Sea" width="12%">
+            <img class="logo-ukf" src="img/ukf.png" alt="Sea" width="20%">
+        </div>
+    </div>
+    
+    <script>
+        function openOrFocusSecondWindow() {
+            secondWindow = window.open("control.html", "_blank", "width=1280, height=720");
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,165 @@
+body, html {
+    height: 100%;
+    margin: 0;
+    background: rgb(31, 31, 31);
+}
+
+@keyframes flash {
+    0% { opacity: 1; }
+    50% { opacity: 0; }
+    100% { opacity: 1; }
+}
+
+.flashing {
+    animation: flash 1s steps(1) 3; /* Анимация мигания длится 1 секунду, повторяется бесконечно */
+}
+
+.time-container {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 12vw;
+    white-space: nowrap;
+    text-align: center;
+    color: white;
+    font-family: "Oswald", sans-serif;
+}
+
+.tatami-text {
+    position: absolute;
+    left: 7.5%;
+    top: 20%;
+    transform: translate(-50%, -50%);
+    font-size: 4vw;
+    white-space: nowrap;
+    text-align: center;
+    color: yellow;
+    font-family: "Oswald", sans-serif;
+}
+
+.tatami-number {
+    position: absolute;
+    left: 7.3%;
+    top: 65%;
+    transform: translate(-50%, -50%);
+    font-size: 9vw;
+    white-space: nowrap;
+    text-align: center;
+    color: white;
+    font-family: "Oswald", sans-serif;
+}
+
+.logo {
+    position: absolute;
+    right: -3.5%;
+    top: 53%;
+    transform: translate(-50%, -50%);
+    font-size: 9vw;
+    white-space: nowrap;
+    text-align: center;
+    color: white;
+    font-family: "Oswald", sans-serif;
+}
+
+.aka-score-container, .ao-score-container {
+    position: relative;
+    left: 2%;
+    top: -15%;
+}
+
+.aka-score, .ao-score {
+    position: absolute;
+    right: 5%;
+    font-size: 16.5vw;
+    white-space: nowrap;
+    text-align: center;
+    color: white;
+    font-family: "Oswald", sans-serif;
+}
+
+.aka-senshu, .ao-senshu {
+    width: 3%; 
+    height: 14%;
+    background-color: #2bff00; /* Цвет круга */
+    border-radius: 50%; /* Превращаем прямоугольник в круг */
+    position: absolute;
+    right: 15%;
+    top: 42.5%;
+    border: 1.5px solid #000000;
+    display: none;
+}
+
+.aka-name-container, .ao-name-container {
+    position: relative;
+    left: 2%;
+    top: -13%;
+}
+
+.aka-name, .ao-name {
+    position: absolute;
+    font-size: 12vw;
+    white-space: nowrap;
+    text-align: center;
+    color: white;
+    font-family: "Oswald", sans-serif;
+}
+
+.container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    max-width: 177.78vh;
+    padding-top: 56.25%;
+    overflow: hidden;
+    background: rgba(0, 0, 0, 0.315);
+}
+
+.aka-container {
+    position: absolute;
+    top: 1.5%;
+    left: 0.65%;
+    width: 98.6%;
+    height: 36%;
+    background: rgb(60,0,0);
+    background: linear-gradient(90deg, rgba(60,0,0,0.7875525210084033) 0%, rgba(175,0,0,1) 66%, rgba(175,0,0,1) 100%);
+}
+
+.ao-container {
+    position: absolute;
+    top: 39%;
+    left: 0.65%;
+    width: 98.6%;
+    height: 36%;
+    background: rgb(0,0,60);
+    background: linear-gradient(90deg, rgba(0,0,60,0.7875525210084033) 0%, rgba(0,24,175,1) 66%, rgba(0,24,175,1) 100%);
+}
+
+.other-container {
+    position: absolute;
+    top: 75%;
+    left: 0.65%;
+    width: 98.6%;
+    height: 25%;
+}
+
+.aka-penalties-container, .ao-penalties-container {
+    top: 50%;
+    left: 55%;
+    transform: translate(-50%, -50%);
+    position: absolute;
+    display: flex;
+    align-items: center;
+}
+
+.aka-penalties-container > div, .ao-penalties-container > div {
+    padding: 23px;
+    padding-top: 3px;
+    padding-bottom: 3px;
+    color: rgb(255, 255, 255);
+    font-family: 'Montserrat', sans-serif;
+    font-size: 3.5vw;
+    text-align: center;
+}

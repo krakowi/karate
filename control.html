@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Control panel</title>
+    <link rel="icon" type="image/png" href="img/remote.png">
+
+    <link rel="stylesheet" href="css/control.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Arimo:ital,wght@0,400..700;1,400..700&family=Oswald:wght@200..700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <audio id="audioPlayer" style="display: none;">
+            <source src="audio/varning.mp3" type="audio/mpeg">
+            Your browser does not support the audio element.
+        </audio>
+        <audio id="end-game" style="display: none;">
+            <source src="audio/mixkit-classic-short-alarm-993.wav" type="audio/mpeg">
+            Your browser does not support the audio element.
+        </audio>
+        <div class="timer-container">
+            <button class="image-restart" id="restart-button">
+                <img src="img/refresh.png" alt="restart match" onclick="resetMatch()" width="2%">
+            </button>
+            <button class="image-settings" id="settings-button">
+                <img src="img/settings.png" alt="settings time" onclick="pauseTimer()" width="2%">
+            </button>
+            <div id="time-modal" class="time-modal">
+                <div class="settings-time">
+                    <span class="close-time">&times;</span>
+                    <p>Изменить время</p>
+                    <input type="number" id="minutes" value="1">:<input type="number" id="seconds" value="30">
+                    <button onclick="updateTime()">Обновить время</button>
+                </div>
+            </div>
+            <button class="image-display" id="display-button">
+                <img src="img/monitor.png" alt="start second display" onclick="openOrFocusSecondWindow()" width="2.7%">
+            </button>
+            <button class="image-tatami" id="tatami-button">
+                <img src="img/draw.png" alt="edit tatami number" onclick="pauseTimer()" width="2.4%">
+            </button>
+            <div id="tatami-modal" class="tatami-modal">
+                <div class="settings-tatami">
+                    <span class="close-tatami">&times;</span>
+                    <p>Изменить номер татами</p>
+                    <input type="number" id="tatami-number" value="1">
+                    <button onclick="updateTatami()">Обновить</button>
+                </div>
+            </div>
+
+            <button class="image-start" id="start-button">
+                <img src="img/start.png" alt="start button" onclick="startTimer()" width="6.5%">
+            </button>
+            <button class="image-stop" id="stop-button">
+                <img src="img/stop.png" alt="stop button" onclick="pauseTimer()" width="9.7%">
+            </button>
+            <div class="time-container" id="timerDisplay">1:30</div>
+            <div class="lymar">Lymar Corporation</div>
+        </div>
+        <div class="ao-container">
+            <div class="ao-score-container">
+                <div class="ao-score" id="ao-score">0</div>
+            </div>
+            <div class="ao-score-buttons">
+                <button id="aoippon" onclick="ippon('ao')">IPPON⠀⠀⠀0</button><button id="aoipponcount" disabled onclick="minusScore('aoippon')">-</button>
+            </div>
+            <div class="ao-score-buttons">
+                <button id="aowazaari" onclick="wazaari('ao')">WAZA-ARI 0</button><button id="aowazaaricount" disabled onclick="minusScore('aowazaari')">-</button>
+            </div>
+            <div class="ao-score-buttons">
+                <button id="aoyuko" onclick="yuko('ao')">YUKO ⠀⠀⠀0</button><button id="aoyukocount" disabled onclick="minusScore('aoyuko')">-</button>
+            </div>  
+            <div class="ao-score-buttons">
+                <button id="aosenshu" onclick="showAoSenshu()">SENSHU</button>
+            </div> 
+            <div class="ao-penalties-container">
+                <div class="ao-pen-name">
+                    <div class="c1">C1</div>
+                    <div class="c2">C2</div>
+                    <div class="c3">C3</div>
+                    <div class="hc">HC</div>
+                    <div class="h">H</div>
+                </div>
+                <input type="checkbox" id="aoc1" onchange="warn(this)">
+                <input type="checkbox" id="aoc2" onchange="warn(this)">
+                <input type="checkbox" id="aoc3" onchange="warn(this)">
+                <input type="checkbox" id="aohc" onchange="warn(this)">
+                <input type="checkbox" id="aoh" onchange="warn(this)">
+            </div>        
+        </div>
+
+        <div class="aka-container">
+            <div class="aka-score-container">
+                <div class="aka-score" id="aka-score">0</div>
+            </div>
+            <div class="aka-score-buttons">
+                <button id="akaippon" onclick="ippon('aka')">IPPON⠀⠀⠀0</button><button id="akaipponcount" disabled onclick="minusScore('akaippon')">-</button>
+            </div>
+            <div class="aka-score-buttons">
+                <button id="akawazaari"  onclick="wazaari('aka')">WAZA-ARI 0</button><button id="akawazaaricount" disabled onclick="minusScore('akawazaari')">-</button>
+            </div>
+            <div class="aka-score-buttons">
+                <button id="akayuko"  onclick="yuko('aka')">YUKO ⠀⠀⠀0</button><button id="akayukocount" disabled onclick="minusScore('akayuko')">-</button>
+            </div>  
+            <div class="aka-score-buttons">
+                <button id="akasenshu" onclick="showAkaSenshu()">SENSHU</button>
+            </div>  
+            <div class="aka-penalties-container">
+                <div class="ao-pen-name">
+                    <div class="c1">C1</div>
+                    <div class="c2">C2</div>
+                    <div class="c3">C3</div>
+                    <div class="hc">HC</div>
+                    <div class="h">H</div>
+                </div>
+                <input type="checkbox" id="akac1" onchange="warn(this)">
+                <input type="checkbox" id="akac2" onchange="warn(this)">
+                <input type="checkbox" id="akac3" onchange="warn(this)">
+                <input type="checkbox" id="akahc" onchange="warn(this)">
+                <input type="checkbox" id="akah" onchange="warn(this)">
+            </div> 
+        </div>
+    </div>
+
+    <script src="js/control.js"></script>
+</body>
+</html>
