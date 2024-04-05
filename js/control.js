@@ -241,6 +241,7 @@ function pauseTimerMed() {
     clearInterval(timerIntervalMed);
     secondsMed = 180;
     document.getElementById('med-timer').innerText = "3:00";
+    document.getElementById("med-modal").style.display = "none";
 }
 
 function formatTime(time) {
@@ -321,7 +322,6 @@ function updateTimerMed() {
     if (secondsMed < 0) {
         pauseTimerMed();
         secondsMed = 0;
-        document.getElementById('med-modal').style.display = 'none';
     }
     document.getElementById('med-timer').innerText = formatTime(secondsMed);
 }
