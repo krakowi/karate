@@ -22,6 +22,20 @@ var audioPlayer = document.getElementById('audioPlayer');
 var end = document.getElementById('end-game');
 end.muted = true;
 audioPlayer.muted = true;
+var oldStyle = 'css/control-1.css';
+var newStyle = 'css/control-2.css';
+var currentStyle = oldStyle;
+
+function toggleStyle() {
+    var link = document.getElementById('style-link');
+    if (currentStyle === oldStyle) {
+        link.href = newStyle;
+        currentStyle = newStyle;
+    } else {
+        link.href = oldStyle;
+        currentStyle = oldStyle;
+    }
+}
 
 document.getElementById("settings-button").addEventListener("click", function() {
     document.getElementById("time-modal").style.display = "block";
