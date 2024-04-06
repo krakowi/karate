@@ -339,6 +339,7 @@ function resetMatch() {
     document.getElementById("akawazaaricount").setAttribute("disabled", "disabled");
     document.getElementById("aoyukocount").setAttribute("disabled", "disabled");
     document.getElementById("akayukocount").setAttribute("disabled", "disabled");
+    updateTime();
 }
 
 function updateTimer() {
