@@ -215,6 +215,15 @@ function formatTime(time) {
     return `${minutes < 10 ? minutes : minutes}:${seconds < 10 ? '0' + seconds : seconds}`;
 }
 
+function hideElement() {
+    document.getElementById('over-modal').style.display = 'none';
+  }
+
+function showForSeconds(seconds) {
+    document.getElementById('over-modal').style.display = 'block';
+    setTimeout(hideElement, seconds * 1000); // переводим секунды в миллисекунды
+}
+
 window.addEventListener('message', function(event) {
     if (event.data === 'start') { // старт времени
         startTimer();
@@ -232,6 +241,8 @@ window.addEventListener('message', function(event) {
         closeWindow();
     } else if (event.data.newTime !== undefined) { // смена времени
         updateTime(event.data.newTime);
+    } else if (event.data === 'stopTime') {
+        showForSeconds(2);
     } else if (event.data.newTimeWait !== undefined) { // смена времени
         updateTimeWait(event.data.newTimeWait);
     } else if (event.data.newTatami !== undefined) { // смена номера татами

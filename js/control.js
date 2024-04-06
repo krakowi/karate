@@ -19,9 +19,9 @@ var aoippon = 0;
 var aowazaari = 0;
 var aoyuko = 0;
 var audioPlayer = document.getElementById('audioPlayer');
-audioPlayer.muted = true;
 var end = document.getElementById('end-game');
 end.muted = true;
+audioPlayer.muted = true;
 
 document.getElementById("settings-button").addEventListener("click", function() {
     document.getElementById("time-modal").style.display = "block";
@@ -83,10 +83,14 @@ function warn(checkbox) {
     }
 }
 
+function onStart() {
+    openOrFocusSecondWindow()
+}
+
 function openOrFocusSecondWindow() {
     if (secondWindow === null || secondWindow.closed) {
         secondWindow = window.open("scoreboard.html", "_blank", "width=1600,height=900");
-        secondWindow.timerRunning = timerRunning; // Передаем состояние таймера во второе окно
+        setTimeout(updateScore, 3 * 1000);
     } else {
         secondWindow.focus();
     }
@@ -246,8 +250,8 @@ function startTimer() {
     if (secondWindow && !secondWindow.closed) {
         secondWindow.postMessage('start', '*');
     }
-    audioPlayer.play()
-    end.play()
+    audioPlayer.play();
+    end.play();
 }
 
 function pauseTimer() {
@@ -263,6 +267,18 @@ function pauseTimer() {
     end.muted = true;
 }
 
+function stopTimer() {
+    timerRunning = false;
+    if (secondWindow && !secondWindow.closed) {
+        secondWindow.postMessage('stopTime', '*');
+    }
+    clearInterval(timerInterval);
+    document.getElementById('stop-button').style.display = 'none';
+    document.getElementById('start-button').style.display = 'block';
+    document.getElementById('timerDisplay').style.color = 'white';
+    audioPlayer.muted = true;
+    end.muted = true;
+}
 
 function pauseTimerMed() {
     timerRunningMed = false;
@@ -313,10 +329,9 @@ document.addEventListener("keydown", function(event) {
 
 function resetMatch() {
     pauseTimer()
-    seconds = 90;
     akaScore = 0;
     aoScore = 0;
-    document.getElementById('timerDisplay').innerText = formatTime(seconds);
+    updateTime();
     if (secondWindow && !secondWindow.closed) {
         secondWindow.postMessage({newTime: seconds}, '*');
         secondWindow.postMessage('resetMatch', '*');
@@ -340,22 +355,21 @@ function resetMatch() {
     document.getElementById("akawazaaricount").setAttribute("disabled", "disabled");
     document.getElementById("aoyukocount").setAttribute("disabled", "disabled");
     document.getElementById("akayukocount").setAttribute("disabled", "disabled");
-    updateTime();
 }
 
 function updateTimer() {
     seconds--;
     if (seconds < 0) {
         seconds = 0;
+        stopTimer();
         end.muted = false;
-        end.play()
-        pauseTimer();
+        end.play();
     } else if (seconds <= 15) {
         document.getElementById('timerDisplay').style.color = 'rgb(255, 0, 0)';
     }
     if (seconds === 15) {
         audioPlayer.muted = false;
-        audioPlayer.play()
+        audioPlayer.play();
     }
     document.getElementById('timerDisplay').innerText = formatTime(seconds);
 }
