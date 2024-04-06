@@ -263,16 +263,6 @@ function pauseTimer() {
     end.muted = true;
 }
 
-function stopTimer {
-    timerRunning = false;
-    clearInterval(timerInterval);
-    document.getElementById('stop-button').style.display = 'none';
-    document.getElementById('start-button').style.display = 'block';
-    document.getElementById('timerDisplay').style.color = 'white';
-    audioPlayer.muted = true;
-    end.muted = true;
-}
-
 
 function pauseTimerMed() {
     timerRunningMed = false;
@@ -356,10 +346,10 @@ function resetMatch() {
 function updateTimer() {
     seconds--;
     if (seconds < 0) {
-        stopTimer();
         seconds = 0;
         end.muted = false;
         end.play()
+        pauseTimer();
     } else if (seconds <= 15) {
         document.getElementById('timerDisplay').style.color = 'rgb(255, 0, 0)';
     }
