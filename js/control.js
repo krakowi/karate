@@ -468,18 +468,40 @@ function updateTatami() {
     document.getElementById("tatami-modal").style.display = "none";
 }
 
-function showAkaSenshu() {
-    AkaVisible = !AkaVisible;
-    document.getElementById('akasenshu').style.backgroundColor = AkaVisible ? 'rgb(255, 238, 0)' : 'rgb(223, 223, 223)';
-    if (secondWindow && !secondWindow.closed) {
-        secondWindow.postMessage({ showAkaSenshu: true }, '*');
-    }
-}
+function senshuAdd(color) {
+    // Получаем элемент кнопки по его ID
+    var button = document.getElementById(`${color}`);
 
-function showAoSenshu() {
-    AoVisible = !AoVisible;
-    document.getElementById('aosenshu').style.backgroundColor = AoVisible ? 'rgb(255, 238, 0)' : 'rgb(223, 223, 223)';
-    if (secondWindow && !secondWindow.closed) {
-        secondWindow.postMessage({ showAoSenshu: true }, '*');
+    var buttonStyles = window.getComputedStyle(button);
+    var buttonColor = buttonStyles.backgroundColor;
+    if (buttonColor === 'rgb(223, 223, 223)') {
+        if (color === 'aosenshu') {
+            AoVisible = !AoVisible;
+            document.getElementById('aosenshu').style.backgroundColor = AoVisible ? 'rgb(255, 238, 0)' : 'rgb(223, 223, 223)';
+            if (secondWindow && !secondWindow.closed) {
+                secondWindow.postMessage({ showSenshu: 'aosenshu'}, '*');
+            }
+        } else {
+            AkaVisible = !AkaVisible;
+            document.getElementById('akasenshu').style.backgroundColor = AkaVisible ? 'rgb(255, 238, 0)' : 'rgb(223, 223, 223)';
+            if (secondWindow && !secondWindow.closed) {
+                secondWindow.postMessage({ showSenshu: 'akasenshu' }, '*');
+            }
+        }
+    } else {
+        if (color === 'aosenshu') {
+            AoVisible = !AoVisible;
+            document.getElementById(color).style.backgroundColor = AoVisible ? 'rgb(255, 238, 0)' : 'rgb(223, 223, 223)';
+            if (secondWindow && !secondWindow.closed) {
+                secondWindow.postMessage({ hideSenshu: 'aosenshu' }, '*');
+            }
+        } else {
+            AkaVisible = !AkaVisible;
+            document.getElementById(color).style.backgroundColor = AkaVisible ? 'rgb(255, 238, 0)' : 'rgb(223, 223, 223)';
+            if (secondWindow && !secondWindow.closed) {
+                secondWindow.postMessage({ hideSenshu: 'akasenshu' }, '*');
+            }
+        }
     }
+
 }

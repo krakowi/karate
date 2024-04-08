@@ -130,13 +130,13 @@ body, html {
     font-family: "Oswald", sans-serif;
 }
 
-.aka-senshu, .ao-senshu {
+.akasenshu, .aosenshu {
     width: 3%; 
     height: 14%;
     background-color: #2bff00; /* Цвет круга */
     border-radius: 50%; /* Превращаем прямоугольник в круг */
     position: absolute;
-    right: 15%;
+    right: 20%;
     top: 42.5%;
     border: 1.5px solid #000000;
     display: none;

@@ -247,9 +247,8 @@ window.addEventListener('message', function(event) {
         updateTimeWait(event.data.newTimeWait);
     } else if (event.data.newTatami !== undefined) { // смена номера татами
         updateTatami(event.data.newTatami);
-    } else if (event.data.showAkaSenshu) { // ака сеншу
-        senshuAkaVisible = !senshuAkaVisible;
-        document.getElementById('aka-senshu').style.display = senshuAkaVisible ? 'flex' : 'none';
+    } else if (event.data.hideSenshu) { // ао сеншу
+        document.getElementById(event.data.hideSenshu).style.display = 'none';
     } else if (event.data === 'resetMatch') { // Перезапустить матч
         senshuAkaVisible = false
         document.getElementById('aka-senshu').style.display = 'none';
@@ -258,9 +257,8 @@ window.addEventListener('message', function(event) {
         unwarnall();
         akaScore = 0;
         aoScore = 0;
-    } else if (event.data.showAoSenshu) { // ао сеншу
-        senshuAoVisible = !senshuAoVisible;
-        document.getElementById('ao-senshu').style.display = senshuAoVisible ? 'flex' : 'none';
+    } else if (event.data.showSenshu) { // ао сеншу
+        document.getElementById(event.data.showSenshu).style.display = 'flex';
     } else if (event.data.newScore) { // обновить счет
         newAkaScore = event.data.newScore.newAkaScore;
         newAoScore = event.data.newScore.newAoScore;
