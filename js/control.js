@@ -166,6 +166,8 @@ function onOpen() {
     if (akah.checked) {
         secondWindow.postMessage({newWarn: akah.id}, '*');
     };
+    end.muted = true;
+    audioPlayer.muted = true;
     audioPlayer.play();
     end.play();
 }
@@ -344,8 +346,6 @@ function pauseTimer() {
     document.getElementById('stop-button').style.display = 'none';
     document.getElementById('start-button').style.display = 'block';
     document.getElementById('timerDisplay').style.color = 'white';
-    audioPlayer.muted = true;
-    end.muted = true;
 }
 
 function stopTimer() {
@@ -357,8 +357,6 @@ function stopTimer() {
     document.getElementById('stop-button').style.display = 'none';
     document.getElementById('start-button').style.display = 'block';
     document.getElementById('timerDisplay').style.color = 'white';
-    audioPlayer.muted = true;
-    end.muted = true;
 }
 
 function pauseTimerMed() {
