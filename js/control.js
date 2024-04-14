@@ -166,6 +166,8 @@ function onOpen() {
     if (akah.checked) {
         secondWindow.postMessage({newWarn: akah.id}, '*');
     };
+    audioPlayer.play();
+    end.play();
 }
 
 function openOrFocusSecondWindow() {
@@ -331,8 +333,6 @@ function startTimer() {
     if (secondWindow && !secondWindow.closed) {
         secondWindow.postMessage('start', '*');
     }
-    audioPlayer.play();
-    end.play();
 }
 
 function pauseTimer() {
