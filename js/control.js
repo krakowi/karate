@@ -18,6 +18,7 @@ var akayuko = 0;
 var aoippon = 0;
 var aowazaari = 0;
 var aoyuko = 0;
+var tatamiNumber = 1;
 var audioPlayer = document.getElementById('audioPlayer');
 var end = document.getElementById('end-game');
 end.muted = true;
@@ -60,7 +61,9 @@ document.getElementsByClassName("close-wait-1")[0].addEventListener("click", fun
 });
 
 document.getElementById("med-button").addEventListener("click", function() {
-    document.getElementById("med-modal").style.display = "block";
+    if (secondWindow && !secondWindow.closed) {
+        document.getElementById("med-modal").style.display = "block";
+    };
 });
 
 document.getElementsByClassName("close-med")[0].addEventListener("click", function() {
@@ -101,10 +104,74 @@ function onStart() {
     openOrFocusSecondWindow()
 }
 
+function onOpen() {
+    updateScore();
+    secondWindow.postMessage({newTatami: tatamiNumber}, '*');
+    secondWindow.postMessage({newTime: seconds}, '*');
+
+    var buttonAka = document.getElementById('akasenshu');
+    var buttonStylesAka = window.getComputedStyle(buttonAka);
+    var buttonColorAka = buttonStylesAka.backgroundColor;
+
+    var buttonAo = document.getElementById('aosenshu');
+    var buttonStylesAo = window.getComputedStyle(buttonAo);
+    var buttonColorAo = buttonStylesAo.backgroundColor;
+    if (buttonColorAo === 'rgb(255, 238, 0)') {
+        secondWindow.postMessage({ showSenshu: 'aosenshu'}, '*');
+    }
+    if (buttonColorAka === 'rgb(255, 238, 0)') {
+        secondWindow.postMessage({ showSenshu: 'akasenshu'}, '*');
+    }
+
+    var aoc1 = document.getElementById('aoc1');
+    var aoc2 = document.getElementById('aoc2');
+    var aoc3 = document.getElementById('aoc3');
+    var aohc = document.getElementById('aohc');
+    var aoh = document.getElementById('aoh');
+
+    var akac1 = document.getElementById('akac1');
+    var akac2 = document.getElementById('akac2');
+    var akac3 = document.getElementById('akac3');
+    var akahc = document.getElementById('akahc');
+    var akah = document.getElementById('akah');
+
+    if (aoc1.checked) {
+        secondWindow.postMessage({newWarn: aoc1.id}, '*');
+    };
+    if (aoc2.checked) {
+        secondWindow.postMessage({newWarn: aoc2.id}, '*');
+    };
+    if (aoc3.checked) {
+        secondWindow.postMessage({newWarn: aoc3.id}, '*');
+    };
+    if (aohc.checked) {
+        secondWindow.postMessage({newWarn: aohc.id}, '*');
+    };
+    if (aoh.checked) {
+        secondWindow.postMessage({newWarn: aoh.id}, '*');
+    };
+
+    if (akac1.checked) {
+        secondWindow.postMessage({newWarn: akac1.id}, '*');
+    };
+    if (akac2.checked) {
+        secondWindow.postMessage({newWarn: akac2.id}, '*');
+    };
+    if (akac3.checked) {
+        secondWindow.postMessage({newWarn: akac3.id}, '*');
+    };
+    if (akahc.checked) {
+        secondWindow.postMessage({newWarn: akahc.id}, '*');
+    };
+    if (akah.checked) {
+        secondWindow.postMessage({newWarn: akah.id}, '*');
+    };
+}
+
 function openOrFocusSecondWindow() {
     if (secondWindow === null || secondWindow.closed) {
         secondWindow = window.open("scoreboard.html", "_blank", "width=1600,height=900");
-        setTimeout(updateScore, 3 * 1000);
+        setTimeout(onOpen, 1 * 1000);
     } else {
         secondWindow.focus();
     }
@@ -231,25 +298,25 @@ function updateScore() {
 }
 
 function medTime() {
-    if (!timerRunningMed) {
-        timerIntervalMed = setInterval(updateTimerMed, 1000);
-    }
-    timerRunningMed = true;
     if (secondWindow && !secondWindow.closed) {
+        if (!timerRunningMed) {
+            timerIntervalMed = setInterval(updateTimerMed, 1000);
+        }
+        timerRunningMed = true;
         secondWindow.postMessage('startMed', '*');
     }
 }
 
 function waitStart() {
-    updateTimeWait()
-    if (!timerRunningWait) {
-        timerIntervalWait = setInterval(updateTimerWait, 1000);
-    }
-    timerRunningWait = true;
     if (secondWindow && !secondWindow.closed) {
+        updateTimeWait()
+        if (!timerRunningWait) {
+            timerIntervalWait = setInterval(updateTimerWait, 1000);
+        }
+        timerRunningWait = true;
         secondWindow.postMessage('startWait', '*');
+        document.getElementById("wait-modal").style.display = "block";
     }
-    document.getElementById("wait-modal").style.display = "block";
     document.getElementById("wait-modal-1").style.display = "none";
 }
 
@@ -361,6 +428,8 @@ function resetMatch() {
     updatecount()
     end.muted = true;
     audioPlayer.muted = true;
+    AkaVisible = false;
+    AoVisible = false;
     document.getElementById('akasenshu').style.backgroundColor = 'rgb(223, 223, 223)';
     document.getElementById('aosenshu').style.backgroundColor = 'rgb(223, 223, 223)';
     document.getElementById("aoipponcount").setAttribute("disabled", "disabled");
@@ -459,6 +528,7 @@ function updateTimerrWait(newTime) {
 
 function updateTatami() {
     let number = parseInt(document.getElementById('tatami-number').value);
+    tatamiNumber = number;
 
     if (!isNaN(number)) {
         if (secondWindow && !secondWindow.closed) {

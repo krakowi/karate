@@ -40,6 +40,21 @@ button {
     border-color: rgb(143, 143, 143);
 }
 
+.info {
+    display: flex;
+    justify-content: center; /* Центрирование изображений по горизонтали */
+    align-items: center; /* Центрирование изображений по вертикали */
+}
+
+h1 {
+    position: absolute;
+    top: 10%;
+    color: white;
+    font-family: "Oswald", sans-serif;
+    -webkit-text-stroke-color: #000;
+    -webkit-text-stroke-width: 1px;
+}
+
 .image-container {
     display: flex;
     justify-content: center; /* Центрирование изображений по горизонтали */

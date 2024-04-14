@@ -250,10 +250,10 @@ window.addEventListener('message', function(event) {
     } else if (event.data.hideSenshu) { // ао сеншу
         document.getElementById(event.data.hideSenshu).style.display = 'none';
     } else if (event.data === 'resetMatch') { // Перезапустить матч
-        senshuAkaVisible = false
-        document.getElementById('aka-senshu').style.display = 'none';
-        senshuAoVisible = false
-        document.getElementById('ao-senshu').style.display = 'none';
+        senshuAkaVisible = false;
+        document.getElementById('akasenshu').style.display = 'none';
+        senshuAoVisible = false;
+        document.getElementById('aosenshu').style.display = 'none';
         unwarnall();
         akaScore = 0;
         aoScore = 0;
